@@ -50,8 +50,8 @@ end )
 
 client:on( 'channelDelete', function( channel )
     if DynamicChannelsAlt[ channel.id ] then
-        DynamicChannelsAlt[ DynamicChannel.id ] = nil
-        DynamicChannels[ DynamicChannel.id ] = nil
+        DynamicChannelsAlt[ channel.id ] = nil
+        DynamicChannels[ channel.id ] = nil
     end
 end )
 
