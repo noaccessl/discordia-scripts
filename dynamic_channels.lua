@@ -1,6 +1,4 @@
 -- With this script, you can have a dynamic temp channel for each user
--- I also don’t know how to adapt this for many servers ¯\_(ツ)_/¯
-
 -- The principle of operation is similar to that of the DynChanZL bot
 
 local discordia = require 'discordia'
