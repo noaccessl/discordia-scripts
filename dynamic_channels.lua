@@ -16,22 +16,21 @@ local DynamicChannels = {}
 local DynamicChannelsAlt = {}
 
 client:on( 'voiceChannelJoin', function( member, channel )
-    for k, v in pairs( Channels ) do
-        if channel.id == k then
-            local DynamicChannel = client:getGuild( v.GuildID ):createVoiceChannel( '👉 ' .. member.username )
-            DynamicChannel:setCategory( v.CategoryID )
-	        DynamicChannel:moveDown( MoveDown + #DynamicChannels )
+    local ch = Channels[ channel.id ]
+    if ch ~= nil then
+        local DynamicChannel = client:getGuild( ch.GuildID ):createVoiceChannel( '👉 ' .. member.username )
+        DynamicChannel:setCategory( ch.CategoryID )
+	    DynamicChannel:moveDown( MoveDown + #DynamicChannels )
 
-	        local permissions = DynamicChannel:getPermissionOverwriteFor( member )
-	        permissions:allowAllPermissions()
+	    member:setVoiceChannel( DynamicChannel.id )
 
-	        member:setVoiceChannel( DynamicChannel.id )
+	    local permissions = DynamicChannel:getPermissionOverwriteFor( member )
+	    permissions:allowAllPermissions()
 
-            DynamicChannelsAlt[ DynamicChannel.id ] = true
-            DynamicChannels[ DynamicChannel.id ] = { members = 1, guildid = v.GuildID }
-        
-            return
-        end
+        DynamicChannelsAlt[ DynamicChannel.id ] = true
+        DynamicChannels[ DynamicChannel.id ] = { members = 1, guildid = ch.GuildID }
+    
+        return
     end
 
     if DynamicChannelsAlt[ channel.id ] then
