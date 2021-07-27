@@ -170,7 +170,7 @@ client:on( 'voiceChannelLeave', function( member, channel )
 		if stored.memberCount == 0 then
 
 			dynchan.SetMemberChannel( member, nil )
-			client:getGuild( stored.guildID ):getChannel( channel.id ):delete()
+			channel:delete()
 
 		end
 
